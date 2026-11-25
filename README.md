@@ -39,7 +39,7 @@ independence, and validation against experiment.
   structured block decomposition — diagonal blocks connecting the domain corners
   to the airfoil give four mapped quad blocks.
 
-*(figure: domain + airfoil — `figures/domain.png`)*
+<img width="700" alt="Rectangular domain with six-block decomposition" src="https://github.com/user-attachments/assets/9081d3aa-4055-4008-9f60-f929962c9f25" />
 
 ## 4. Mesh
 
