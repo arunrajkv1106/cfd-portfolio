@@ -37,9 +37,11 @@ independence, and validation against experiment.
   sharp vertex (single continuous curve, no merge required).
 - Rectangular (box) computational domain surrounding the airfoil, meshed with a
   structured block decomposition — diagonal blocks connecting the domain corners
-  to the airfoil give four mapped quad blocks.
+  to the airfoil give six mapped quad blocks.
 
-<img width="700" alt="Rectangular domain with six-block decomposition" src="https://github.com/user-attachments/assets/9081d3aa-4055-4008-9f60-f929962c9f25" />
+<img width="480" alt="Rectangular domain with six-block decomposition" src="https://github.com/user-attachments/assets/9081d3aa-4055-4008-9f60-f929962c9f25" />
+
+*Figure 1: Rectangular computational domain with the six-block structured decomposition; NACA 0015 airfoil at centre.*
 
 ## 4. Mesh
 
