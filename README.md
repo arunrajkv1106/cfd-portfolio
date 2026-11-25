@@ -1,8 +1,7 @@
 # CFD Analysis and Validation of the NACA 0015 Airfoil
 
 A 2D RANS study of the NACA 0015 airfoil in ANSYS Fluent — from geometry and
-meshing through verification (convergence, y⁺, mesh independence) to validation
-against published experimental data.
+meshing through verification to validation against published experimental data.
 
 **Status:** 🟡 In progress — verification stage.
 
@@ -34,7 +33,7 @@ independence, and validation against experiment.
 ## 3. Geometry and Domain
 
 - Airfoil generated from NACA 0015 coordinates; trailing edge closed to a single
-  sharp vertex (single continuous curve, no merge required).
+  sharp vertex .
 - Rectangular (box) computational domain surrounding the airfoil, meshed with a
   structured block decomposition — diagonal blocks connecting the domain corners
   to the airfoil give six mapped quad blocks.
