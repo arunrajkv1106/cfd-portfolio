@@ -35,9 +35,9 @@ independence, and validation against experiment.
 
 - Airfoil generated from NACA 0015 coordinates; trailing edge closed to a single
   sharp vertex (single continuous curve, no merge required).
-- C-type flow domain surrounding the airfoil.
-- **Note / limitation:** current domain is relatively small; far-field distance to
-  be increased for domain-independence (see Verification).
+- Rectangular (box) computational domain surrounding the airfoil, meshed with a
+  structured block decomposition — diagonal blocks connecting the domain corners
+  to the airfoil give four mapped quad blocks.
 
 *(figure: domain + airfoil — `figures/domain.png`)*
 
