@@ -60,14 +60,11 @@ independence, and validation against experiment.
   The far-field edge is L ≈ 2.5 m, so a 2 × 10⁻⁵ m first cell demands a span
   ratio L/h ≈ 125,000, forcing bias factor ~22,600 — beyond what the mapped
   mesher builds cleanly (mapping failed).
-- **Resolution:** inflation layers decouple wall resolution from the far field.
-  The radial (wall-normal) spacing is set by the inflation control — **not** by
-  edge divisions:
+- **Resolution:** inflation layers set the radial (wall-normal) spacing:
   - First layer height **2 × 10⁻⁵ m** (fixes y⁺ ≈ 1), growth rate **1.2**,
-    **20 layers** (covers the near-wall boundary layer; reduced from 28 to ease
-    trailing-edge layer collision — see TE treatment below).
-  - The old biased radial Edge Sizing is **suppressed**; inflation replaces it.
-    Streamwise resolution is unchanged (Edge Sizing 2, 150 along the surface).
+    **20 layers** (covers the near-wall boundary layer).
+  - Streamwise direction: **150 divisions** along the surface (Edge Sizing 2).
+- **Cell count:** ≈ **14,375** cells (14,687 nodes).
 
 <img width="521" height="300" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/83072628-4795-435c-9e3d-38271f17c904" />
 
@@ -88,7 +85,7 @@ did not corrupt the solution (Cp is smooth to the TE).
 The TE was closed to a sharp cusp (≈ 0° wedge). Inflation layers from the upper
 and lower surfaces collide in that wedge and form a few near-degenerate cells
 (OQ ≈ 0.01, skew ≈ 1.0). Mitigations applied:
-- Reduced layers **28 → 20** (shrinks the collision zone).
+- **20 layers** — kept moderate to limit the collision zone.
 - Collision avoidance = **Stair Stepping** — drops layers locally in the wedge
   instead of crushing them into slivers.
 
@@ -152,7 +149,7 @@ blunt TE, which removes the cusp entirely.
 
 | Mesh | Cells | Cl | Cd |
 |---|---|---|---|
-| Coarse (baseline) | — | 0.0062 | 0.0118 |
+| Coarse (baseline) | 14,375 | 0.0062 | 0.0118 |
 | Medium | — | — | — |
 | Fine | — | — | — |
 
