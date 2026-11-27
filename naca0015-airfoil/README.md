@@ -1,3 +1,4 @@
+<img width="1031" height="621" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/9a01aca0-4362-4d47-b93a-86ca87c7c8f6" />
 # CFD Analysis and Validation of the NACA 0015 Airfoil
 
 A 2D RANS study of the NACA 0015 airfoil in ANSYS Fluent — from geometry and
