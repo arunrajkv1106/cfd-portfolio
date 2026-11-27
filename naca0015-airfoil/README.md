@@ -44,13 +44,21 @@ independence, and validation against experiment.
 
 ## 4. Mesh
 
-- **Type:** structured, block-decomposed (mapped quad cells).
+- **Type:** block-decomposed around the airfoil; structured mapped quads in
+  the outer domain, inflation layers near the wall.
 - **Strategy:** near-wall clustering toward the airfoil; refinement at the
   leading and trailing edges.
 - **y⁺ target:** ≈ 1 (wall-resolved, for k-ω SST).
-  - First-cell height for y⁺ ≈ 1: **~2 × 10⁻⁵ m** (derived from Cf → τ_w → u_τ).
-  - **Current status:** baseline mesh gives y⁺ ≈ 100 (wall-function range);
-    near-wall mesh being refined to reach y⁺ ≈ 1.
+  - First-cell height for y⁺ ≈ 1: **~2 × 10⁻⁵ m** (from Cf → τ_w → u_τ).
+  - **Design finding:** a single biased radial edge cannot reach y⁺ ≈ 1 on
+    this domain. The far-field edge is L ≈ 2.5 m, so a 2 × 10⁻⁵ m first cell
+    demands a span ratio L/h ≈ 125,000, forcing bias factor ~22,600 — beyond
+    what the mapped mesher builds cleanly.
+  - **Resolution:** inflation layers decouple wall resolution from the
+    far-field — first layer 2 × 10⁻⁵ m, growth rate 1.2, ~28 layers
+    (covering the ~23 mm turbulent BL at the TE).
+  - **Status:** inflation mesh being built; quality metrics, y⁺ plot, and
+    mesh-independence table to follow.
 
 *(figure: mesh overview + leading-edge close-up — `figures/mesh.png`)*
 
