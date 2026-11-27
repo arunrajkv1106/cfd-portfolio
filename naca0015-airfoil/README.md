@@ -1,4 +1,4 @@
-<img width="1031" height="621" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/9a01aca0-4362-4d47-b93a-86ca87c7c8f6" />
+
 # CFD Analysis and Validation of the NACA 0015 Airfoil
 
 A 2D RANS study of the NACA 0015 airfoil in ANSYS Fluent — from geometry and
@@ -59,7 +59,7 @@ independence, and validation against experiment.
 - **Resolution:** inflation layers decouple wall resolution from the far field —
   first layer 2 × 10⁻⁵ m, growth rate 1.2, 20 layers.
 
-![y+ distribution](images/naca0015_yplus.png)
+![y+ distribution](<img width="400" height="621" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/9a01aca0-4362-4d47-b93a-86ca87c7c8f6" />)
 *Fig: Wall y⁺ along the chord — below 1 everywhere (≈0.88 at LE, ≈0.14 at TE). Wall-resolved.*
 
 ### Mesh quality
