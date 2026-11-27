@@ -58,7 +58,7 @@ independence, and validation against experiment.
   mesher builds cleanly (mapping failed).
 - **Resolution:** inflation layers decouple wall resolution from the far field —
   first layer 2 × 10⁻⁵ m, growth rate 1.2, 20 layers.
-<img width="621" height="400" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/83072628-4795-435c-9e3d-38271f17c904" />
+<img width="521" height="300" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/83072628-4795-435c-9e3d-38271f17c904" />
 
 *Fig: Wall y⁺ along the chord — below 1 everywhere (≈0.88 at LE, ≈0.14 at TE). Wall-resolved.*
 
@@ -81,7 +81,7 @@ collide). Negligible area; did not corrupt the solution (see Cp).
 - Cp smooth and physical: stagnation Cp ≈ 1 at LE, suction peak ≈ −0.55 at
   x/c ≈ 0.13, clean recovery to TE.
 
-<img width="621" height="400" alt="naca0015_cp" src="https://github.com/user-attachments/assets/5e0a0d3b-500a-4a34-a08d-fe5d35682eff" />
+<img width="521" height="300" alt="naca0015_cp" src="https://github.com/user-attachments/assets/5e0a0d3b-500a-4a34-a08d-fe5d35682eff" />
 
 *Fig: Surface Cp at α = 0° — smooth, no trailing-edge artefact.*
 
