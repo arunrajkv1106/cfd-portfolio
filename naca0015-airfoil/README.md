@@ -60,8 +60,14 @@ independence, and validation against experiment.
   The far-field edge is L ≈ 2.5 m, so a 2 × 10⁻⁵ m first cell demands a span
   ratio L/h ≈ 125,000, forcing bias factor ~22,600 — beyond what the mapped
   mesher builds cleanly (mapping failed).
-- **Resolution:** inflation layers decouple wall resolution from the far field —
-  first layer 2 × 10⁻⁵ m, growth rate 1.2, 20 layers.
+- **Resolution:** inflation layers decouple wall resolution from the far field.
+  The radial (wall-normal) spacing is set by the inflation control — **not** by
+  edge divisions:
+  - First layer height **2 × 10⁻⁵ m** (fixes y⁺ ≈ 1), growth rate **1.2**,
+    **20 layers** (covers the near-wall boundary layer; reduced from 28 to ease
+    trailing-edge layer collision — see TE treatment below).
+  - The old biased radial Edge Sizing is **suppressed**; inflation replaces it.
+    Streamwise resolution is unchanged (Edge Sizing 2, 150 along the surface).
 
 <img width="521" height="300" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/83072628-4795-435c-9e3d-38271f17c904" />
 
@@ -75,8 +81,30 @@ independence, and validation against experiment.
 | Aspect Ratio | 1 | 371 | 37 |
 
 Average quality is excellent. The low OQ-min / high skew-max come from a few
-cells at the sharp trailing-edge cusp (inflation layers from both surfaces
-collide). Negligible area; did not corrupt the solution (see Cp).
+cells at the sharp trailing-edge cusp (see TE treatment below). Negligible area;
+did not corrupt the solution (Cp is smooth to the TE).
+
+### Trailing-edge treatment
+The TE was closed to a sharp cusp (≈ 0° wedge). Inflation layers from the upper
+and lower surfaces collide in that wedge and form a few near-degenerate cells
+(OQ ≈ 0.01, skew ≈ 1.0). Mitigations applied:
+- Reduced layers **28 → 20** (shrinks the collision zone).
+- Collision avoidance = **Stair Stepping** — drops layers locally in the wedge
+  instead of crushing them into slivers.
+
+A few slivers remain — inherent to a zero-thickness cusp. **Accepted for this
+baseline**: affected area is negligible and the solution is clean there (smooth
+Cp, no TE artefact). *Future improvement:* restore the physical ~0.3 %-chord
+blunt TE, which removes the cusp entirely.
+
+### Key meshing decisions (base case)
+| Decision | Choice | Reason |
+|---|---|---|
+| Near-wall method | Inflation layers | One biased radial edge can't reach y⁺ ≈ 1 on a 2.5 m domain (L/h ≈ 125 000 → bias ~22 600 → mapper fails) |
+| First layer / growth / layers | 2 × 10⁻⁵ m / 1.2 / 20 | y⁺ ≈ 1 with gentle growth; 20 eases TE collision |
+| TE collision | Stair stepping | Avoids crushed cells in the sharp-TE wedge |
+| Streamwise | 150 (Edge Sizing 2) | Surface resolution, unchanged |
+| Outer field | Quad-dominant, body size ~0.08 m | Coarse where gradients are small |
 
 ### Baseline result (α = 0°)
 - U = 17 m/s, Re ≈ 1.16 × 10⁶, k-ω SST, second-order upwind. Converged.
@@ -102,6 +130,7 @@ collide). Negligible area; did not corrupt the solution (see Cp).
 | Boundary conditions | Velocity inlet, pressure outlet, symmetry far-field, no-slip wall | — |
 | Reference values | Computed from inlet (ρ, U, A = c × 1 m) | Correct non-dimensionalization of Cl, Cd, Cp |
 | Schemes | Second-order upwind | Accuracy |
+| Initialization | Hybrid + external-aero favorable settings | Smooth, geometry-aware start; robust with fragile TE cells |
 
 ## 6. Verification ("are we solving the equations right?")
 
