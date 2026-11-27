@@ -66,10 +66,6 @@ independence, and validation against experiment.
   - Streamwise direction: **150 divisions** along the surface (Edge Sizing 2).
 - **Cell count:** ≈ **14,375** cells (14,687 nodes).
 
-<img width="521" height="300" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/83072628-4795-435c-9e3d-38271f17c904" />
-
-*Fig: Wall y⁺ along the chord — below 1 everywhere (≈0.88 at LE, ≈0.14 at TE). Wall-resolved.*
-
 ### Mesh quality
 | Metric | Min | Max | Avg |
 |---|---|---|---|
@@ -90,6 +86,10 @@ did not corrupt the solution (Cp is smooth to the TE).
 | TE collision | Stair stepping | Avoids crushed cells in the sharp-TE wedge |
 | Streamwise | 150 (Edge Sizing 2) | Surface resolution, unchanged |
 | Outer field | Quad-dominant, body size ~0.08 m | Coarse where gradients are small |
+
+<img width="521" height="300" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/83072628-4795-435c-9e3d-38271f17c904" />
+
+*Fig: Wall y⁺ along the chord — below 1 everywhere (≈0.88 at LE, ≈0.14 at TE). Wall-resolved.*
 
 ### Baseline result (α = 0°)
 - U = 17 m/s, Re ≈ 1.16 × 10⁶, k-ω SST, second-order upwind. Converged.
