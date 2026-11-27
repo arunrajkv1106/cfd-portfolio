@@ -44,24 +44,47 @@ independence, and validation against experiment.
 
 ## 4. Mesh
 
-- **Type:** block-decomposed around the airfoil; structured mapped quads in
-  the outer domain, inflation layers near the wall.
-- **Strategy:** near-wall clustering toward the airfoil; refinement at the
-  leading and trailing edges.
-- **y⁺ target:** ≈ 1 (wall-resolved, for k-ω SST).
-  - First-cell height for y⁺ ≈ 1: **~2 × 10⁻⁵ m** (from Cf → τ_w → u_τ).
-  - **Design finding:** a single biased radial edge cannot reach y⁺ ≈ 1 on
-    this domain. The far-field edge is L ≈ 2.5 m, so a 2 × 10⁻⁵ m first cell
-    demands a span ratio L/h ≈ 125,000, forcing bias factor ~22,600 — beyond
-    what the mapped mesher builds cleanly.
-  - **Resolution:** inflation layers decouple wall resolution from the
-    far-field — first layer 2 × 10⁻⁵ m, growth rate 1.2, ~28 layers
-    (covering the ~23 mm turbulent BL at the TE).
-  - **Status:** inflation mesh being built; quality metrics, y⁺ plot, and
-    mesh-independence table to follow.
+- **Type:** block-decomposed domain; inflation layers near the wall,
+  quad-dominant mesh in the outer field.
+- **Streamwise resolution:** 150 divisions along the airfoil surface.
 
-*(figure: mesh overview + leading-edge close-up — `figures/mesh.png`)*
+### Near-wall strategy (y⁺)
+- **Target:** y⁺ ≈ 1 (wall-resolved, for k-ω SST). First-cell height
+  ~2 × 10⁻⁵ m (from Cf → τ_w → u_τ).
+- **Design finding:** a single biased radial edge cannot reach y⁺ ≈ 1 here.
+  The far-field edge is L ≈ 2.5 m, so a 2 × 10⁻⁵ m first cell demands a span
+  ratio L/h ≈ 125,000, forcing bias factor ~22,600 — beyond what the mapped
+  mesher builds cleanly (mapping failed).
+- **Resolution:** inflation layers decouple wall resolution from the far field —
+  first layer 2 × 10⁻⁵ m, growth rate 1.2, 20 layers.
 
+![y+ distribution](images/naca0015_yplus.png)
+*Fig: Wall y⁺ along the chord — below 1 everywhere (≈0.88 at LE, ≈0.14 at TE). Wall-resolved.*
+
+### Mesh quality
+| Metric | Min | Max | Avg |
+|---|---|---|---|
+| Orthogonal Quality | 0.011 | 1.00 | 0.95 |
+| Skewness | ~0 | 0.9999 | 0.17 |
+| Aspect Ratio | 1 | 371 | 37 |
+
+Average quality is excellent. The low OQ-min / high skew-max come from a few
+cells at the sharp trailing-edge cusp (inflation layers from both surfaces
+collide). Negligible area; did not corrupt the solution (see Cp).
+
+### Baseline result (α = 0°)
+- U = 17 m/s, Re ≈ 1.16 × 10⁶, k-ω SST, second-order upwind. Converged.
+- **C_d = 0.0118** (pressure 0.0041 + viscous 0.0077 — friction-dominated).
+- **C_l = 0.0062** (ideal 0 by symmetry; small residual from the unstructured
+  outer mesh not being perfectly mirror-symmetric).
+- Cp smooth and physical: stagnation Cp ≈ 1 at LE, suction peak ≈ −0.55 at
+  x/c ≈ 0.13, clean recovery to TE.
+
+![Cp distribution](images/naca0015_cp.png)
+*Fig: Surface Cp at α = 0° — smooth, no trailing-edge artefact.*
+
+### Next
+- Mesh independence · AoA sweep (0–16°) · validation (Sheldahl / XFOIL)
 ## 5. Solver Setup
 
 | Setting | Choice | Rationale |
