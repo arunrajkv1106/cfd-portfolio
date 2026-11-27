@@ -45,6 +45,10 @@ independence, and validation against experiment.
 
 ## 4. Mesh
 
+> **Baseline mesh** — the first rung of the mesh-independence study (§6).
+> Described here as *used*; its adequacy is confirmed by the independence
+> study in §6.
+
 - **Type:** block-decomposed domain; inflation layers near the wall,
   quad-dominant mesh in the outer field.
 - **Streamwise resolution:** 150 divisions along the airfoil surface.
@@ -58,6 +62,7 @@ independence, and validation against experiment.
   mesher builds cleanly (mapping failed).
 - **Resolution:** inflation layers decouple wall resolution from the far field —
   first layer 2 × 10⁻⁵ m, growth rate 1.2, 20 layers.
+
 <img width="521" height="300" alt="naca0015_yplus" src="https://github.com/user-attachments/assets/83072628-4795-435c-9e3d-38271f17c904" />
 
 *Fig: Wall y⁺ along the chord — below 1 everywhere (≈0.88 at LE, ≈0.14 at TE). Wall-resolved.*
@@ -87,6 +92,7 @@ collide). Negligible area; did not corrupt the solution (see Cp).
 
 ### Next
 - Mesh independence · AoA sweep (0–16°) · validation (Sheldahl / XFOIL)
+
 ## 5. Solver Setup
 
 | Setting | Choice | Rationale |
@@ -101,16 +107,15 @@ collide). Negligible area; did not corrupt the solution (see Cp).
 
 ### 6.1 Iterative convergence — ✅ PASSED
 - Cl and Cd monitored vs iteration; both flat (converged).
-- Residuals: continuity ~1×10⁻¹⁰, momentum/turbulence ~1×10⁻¹² to 10⁻¹⁴.
-- **Cd = 0.0150**, **Cl ≈ 0** (as expected for a symmetric airfoil at 0°).
+- Residuals steadily decreasing (continuity ~10⁻⁵, momentum/turbulence lower).
+- **Cd = 0.0118**, **Cl = 0.0062** (≈ 0, as expected for a symmetric airfoil at 0°).
 
-*(figure: convergence history — `figures/convergence.png`)*
+*(figure: convergence history — screenshot to add)*
 
-### 6.2 y⁺ check — 🟡 in progress
-- Baseline y⁺ ≈ 100 (log-law region, wall-function mode).
-- Refining near-wall mesh to y⁺ ≈ 1 (wall-resolved) for accurate drag/separation.
-
-*(figure: wall y⁺ distribution — `figures/yplus.png`)*
+### 6.2 y⁺ check — ✅ PASSED
+- Wall y⁺ **< 1 everywhere** (≈ 0.88 at LE, ≈ 0.14 at TE) → wall-resolved.
+- Achieved via inflation layers (first cell 2 × 10⁻⁵ m); see §4 for the
+  near-wall strategy and the y⁺ plot.
 
 ### 6.3 Mesh independence — ⬜ pending
 - Plan: 3–4 meshes (coarse → fine), first-cell height held fixed (y⁺ ≈ 1),
@@ -118,9 +123,13 @@ collide). Negligible area; did not corrupt the solution (see Cp).
 
 | Mesh | Cells | Cl | Cd |
 |---|---|---|---|
-| Coarse | — | — | — |
+| Coarse (baseline) | — | 0.0062 | 0.0118 |
 | Medium | — | — | — |
 | Fine | — | — | — |
+
+**Selected mesh:** to be set after the study — the baseline if Cd is already
+grid-independent, otherwise the refined mesh. This is the mesh used for all
+results in §9.
 
 ## 7. Physical Sanity Checks — ✅ PASSED
 
@@ -128,7 +137,8 @@ Independent of external data, from first principles:
 - Cp = +1 at the leading-edge stagnation point.
 - Cp ≤ 1 everywhere.
 - Suction peak near the leading edge, pressure recovery toward the trailing edge.
-- Upper and lower Cp identical at 0° → zero lift (symmetry confirmed).
+- Upper and lower Cp nearly identical at 0° → Cl ≈ 0 (a small residual, ~0.006,
+  remains from the unstructured outer mesh not being perfectly mirror-symmetric).
 - Lift dominated by pressure; viscous contribution negligible.
 
 *(figure: Cp vs x/c — `figures/cp.png`)*
@@ -143,8 +153,8 @@ Independent of external data, from first principles:
 
 | Quantity | Value (α = 0°) | Status |
 |---|---|---|
-| Cl | ≈ 0 | ✅ consistent with symmetry |
-| Cd | 0.0150 | 🟡 slightly high — expected to drop with y⁺≈1 mesh |
+| Cl | 0.0062 (≈ 0) | ✅ consistent with symmetry (small mesh-asymmetry residual) |
+| Cd | 0.0118 | 🟡 slightly high — fully-turbulent model + compact domain |
 
 ## 10. Key Learnings
 
