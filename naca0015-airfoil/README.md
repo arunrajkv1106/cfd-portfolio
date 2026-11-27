@@ -81,18 +81,6 @@ Average quality is excellent. The low OQ-min / high skew-max come from a few
 cells at the sharp trailing-edge cusp (see TE treatment below). Negligible area;
 did not corrupt the solution (Cp is smooth to the TE).
 
-### Trailing-edge treatment
-The TE was closed to a sharp cusp (≈ 0° wedge). Inflation layers from the upper
-and lower surfaces collide in that wedge and form a few near-degenerate cells
-(OQ ≈ 0.01, skew ≈ 1.0). Mitigations applied:
-- **20 layers** — kept moderate to limit the collision zone.
-- Collision avoidance = **Stair Stepping** — drops layers locally in the wedge
-  instead of crushing them into slivers.
-
-A few slivers remain — inherent to a zero-thickness cusp. **Accepted for this
-baseline**: affected area is negligible and the solution is clean there (smooth
-Cp, no TE artefact). *Future improvement:* restore the physical ~0.3 %-chord
-blunt TE, which removes the cusp entirely.
 
 ### Key meshing decisions (base case)
 | Decision | Choice | Reason |
